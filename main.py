@@ -1,11 +1,22 @@
+import tkinter as tk
+from tkinter import messagebox
+from tkinter import PhotoImage
 import pandas as pd
+import random 
 
-questions = [
-    ['image', 'a', 'b', 'c', 'd', 'answer']
-]
+df = pd.read_excel('questions.xlsx')
+questions = df.sample(n=1).values.tolist()
 
-#creation of pandas dataframe
-df = pd.DataFrame(questions, columns=['image', 'option 1', 'option 2', 'option 3', 'option 4', 'answer'])
-#saving dataframe
-df.to_excel('questions.xlsx', index=False)
-print('questions ok')
+#definig colors 
+background_color = '#ECECEC'
+text_color = "#333333"
+button_color = '#4CAF50'
+
+#window configuration 
+window = tk.Tk()
+window.title('Quiz')
+window.geometry('400x450')
+window.config(bg=background_color)
+window.option_add('*Font', 'Arial')
+
+window.mainloop()
