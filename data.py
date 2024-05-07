@@ -1,7 +1,8 @@
 import pandas as pd
 
 questions = [
-    ['image', 'a', 'b', 'c', 'd', 'answer']
+    ['images/doctor.png', 'Futbolista', 'Médico', 'Panadero', 'Cocinero', 2],
+    ['images/chef.png', 'Camarero', 'Panadero', 'Cocinero', 'Enfermero', 3]
 ]
 
 #pandas dataframe creation
