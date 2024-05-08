@@ -1,22 +1,54 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import PhotoImage
+from time import sleep
 import pandas as pd
-import random 
+
 
 df = pd.read_excel('questions.xlsx')
 questions = df.sample(n=2).values.tolist()
 score = 0
 current_question = 0
 
+def check_up(answer):
+    global score, current_question
+    if answer == correct_answer.get():
+        score += 1
+    btns = [option1_btn, option2_btn, option3_btn, option4_btn]
+    for btn in btns:
+        btn.config(state=tk.DISABLED)
+        if btn['text'] != questions[current_question][correct_answer.get()]:
+            btn.config(bg='red')
+    current_question += 1 
+    if current_question < len(questions):
+        window.after(500, display_question)
+    else:
+        window.after(500, show_result)
+
+
 def display_question():
     question, option1, option2, option3, option4, answer = questions[current_question]
     question_label.config(text=question)
-    option1_btn.config(text=option1, state=tk.NORMAL)
-    option2_btn.config(text=option2, state=tk.NORMAL)
-    option3_btn.config(text=option3, state=tk.NORMAL)
-    option4_btn.config(text=option4, state=tk.NORMAL)
+    option1_btn.config(text=option1, bg=button_color, state=tk.NORMAL, command=lambda:check_up(1))
+    option2_btn.config(text=option2, bg=button_color, state=tk.NORMAL, command=lambda:check_up(2))
+    option3_btn.config(text=option3, bg=button_color, state=tk.NORMAL, command=lambda:check_up(3))
+    option4_btn.config(text=option4, bg=button_color, state=tk.NORMAL, command=lambda:check_up(4))
+    correct_answer.set(answer)
+    play_again_btn.forget()
 
+def show_result():
+    messagebox.showinfo(title='Quiz finalizado', message=f'Pontuação final: {score}/{len(questions)}')
+    btns = [option1_btn, option2_btn, option3_btn, option4_btn]
+    for btn in btns:
+        btn.config(state=tk.DISABLED)
+    play_again_btn.pack(pady=10)
+
+def play_again():
+    global score, current_question, questions
+    score = 0
+    current_question = 0
+    questions = df.sample(n=2).values.tolist()
+    display_question()
 
 #definig colors 
 background_color = '#ECECEC'
@@ -28,6 +60,7 @@ button_text_color = '#FFFFFF'
 window = tk.Tk()
 window.title('Quiz')
 window.geometry('400x500')
+window.resizable(False, False)
 window.config(bg=background_color)
 window.option_add('*Font', 'Arial')
 
@@ -41,7 +74,7 @@ question_label = tk.Label(window, text='',wraplength=380 ,bg=background_color, f
 question_label.pack(pady=10)
 
 #answer options
-correct_asnwer = tk.IntVar()
+correct_answer = tk.IntVar()
 option1_btn = tk.Button(window, text='', width=30, bg=button_color, fg=button_text_color, state=tk.DISABLED, font=('Arial', 10, 'bold'))
 option1_btn.pack(pady=10)
 option2_btn = tk.Button(window, text='', width=30, bg=button_color, fg=button_text_color, state=tk.DISABLED, font=('Arial', 10, 'bold'))
@@ -50,7 +83,7 @@ option3_btn = tk.Button(window, text='', width=30, bg=button_color, fg=button_te
 option3_btn.pack(pady=10)
 option4_btn = tk.Button(window, text='', width=30, bg=button_color, fg=button_text_color, state=tk.DISABLED, font=('Arial', 10, 'bold'))
 option4_btn.pack(pady=10)
-play_again_btn = tk.Button(window, text='Jugar de nuevo', width=30, bg=button_color, fg=button_text_color, font=('Arial', 10, 'bold'))
+play_again_btn = tk.Button(window, text='Jugar de nuevo', width=30, bg='yellow', fg='grey', font=('Arial', 10, 'bold'), command=play_again)
 
 display_question()
 
