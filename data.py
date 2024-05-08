@@ -1,8 +1,8 @@
 import pandas as pd
 
 questions = [
-    ['images/doctor.png', 'Futbolista', 'Médico', 'Panadero', 'Cocinero', 2],
-    ['images/chef.png', 'Camarero', 'Panadero', 'Cocinero', 'Enfermero', 3]
+    ['Con unos zapatos grandes y la cara muy pintada, soy el que hace reír a toda la chiquillada.', 'Futbolista', 'Payaso', 'Panadero', 'Cocinero', 2],
+    ['Preparo ricos manjares, mi lugar es la cocina de restaurantes y hoteles. Veamos quién me adivina.', 'Camarero', 'Panadero', 'Cocinero', 'Enfermero', 3]
 ]
 
 #pandas dataframe creation
