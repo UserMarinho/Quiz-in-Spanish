@@ -3,8 +3,8 @@ import pandas as pd
 from tkinter import messagebox
 from tkinter import PhotoImage
 
+df = pd.read_excel('_internal/questions.xlsx')
 number_of_question = 5
-df = pd.read_excel('questions.xlsx')
 questions = df.sample(n=number_of_question).values.tolist()
 score = 0
 current_question = 0
@@ -64,9 +64,9 @@ window.config(bg=background_color)
 window.option_add('*Font', 'Arial')
 
 #question 
-text_label = tk.Label(window, text='¿Lo qué soy?', bg=background_color, fg=text_color, font=('Arial', 12, 'bold'))
+text_label = tk.Label(window, text='¿Lo que soy?', bg=background_color, fg=text_color, font=('Arial', 12, 'bold'))
 text_label.pack(pady=10)
-image = PhotoImage(file='images/mistery.png')
+image = PhotoImage(file='_internal/images/mistery.png')
 image_label = tk.Label(window, image=image, bg=background_color)
 image_label.pack(pady=20)
 question_label = tk.Label(window, text='',wraplength=380 ,bg=background_color, fg=text_color, font=('Arial', 12, 'bold'))
